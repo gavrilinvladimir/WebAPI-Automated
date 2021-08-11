@@ -17,11 +17,9 @@ public class BaseTest {
     }
 
     @BeforeTest(alwaysRun = true)
-    public void beforeTest(final ITestContext testContext) {
-        LOG.info(String.format("Test Case started: %s",testContext.getName()));
+    public void beforeTest() {
     }
     @AfterTest(alwaysRun = true)
-    public void afterTest(final ITestContext testContext) {
-        LOG.info(String.format("Test Case ended: %s",testContext.getName()));
+    public void afterTest() {
     }
 }
