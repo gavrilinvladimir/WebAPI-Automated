@@ -1,0 +1,8 @@
+{
+  "orderType": "asc",
+  "page": "1",
+  "nationality": "string",
+  "pagination": "true",
+  "size": "10",
+  "sortBy": "authorId"
+}
