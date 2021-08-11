@@ -9,7 +9,6 @@ import service.BaseService;
 
 public class AuthorTests extends BaseTest {
     private Logger LOG = Logger.getLogger(BaseTest.class);
-
     @Test (description = "positive check for creation an author")
     public void verifyPostCreateAuthor () {
         BaseResponse response = new AuthorService().createAuthor(ServicesConfig.AUTHOR.getSingular(),16, "requestsSamples/postAuthor.json");
