@@ -1,6 +1,7 @@
 package response;
 
 import io.restassured.response.Response;
+import models.author.Author;
 
 public class BaseResponse {
     private Response response;
@@ -19,5 +20,9 @@ public class BaseResponse {
 
     public String getBody() {
         return this.response.body().asString();
+    }
+
+    public Author getAsAuthorClass() {
+        return this.response.body().as(Author.class);
     }
 }

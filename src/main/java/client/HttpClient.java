@@ -4,6 +4,8 @@ import config.EnvConfig;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import models.BaseModel;
+import models.author.Author;
 import org.apache.log4j.Logger;
 import response.BaseResponse;
 
@@ -16,11 +18,11 @@ public class HttpClient {
         return HttpClient.sendRequest(Method.GET, endpoint);
     }
 
-    public static BaseResponse post(String endpoint, String body) {
+    public static BaseResponse post(String endpoint, BaseModel body) {
         return HttpClient.sendRequest(Method.POST, endpoint, body);
     }
 
-    public static BaseResponse put(String endpoint, String body) {
+    public static BaseResponse put(String endpoint, BaseModel body) {
         return HttpClient.sendRequest(Method.PUT, endpoint, body);
     }
 
@@ -32,12 +34,13 @@ public class HttpClient {
         return HttpClient.sendRequest(method, endpoint, null);
     }
 
-    private static BaseResponse sendRequest(Method method, String endpoint, String body) {
+    private static BaseResponse sendRequest(Method method, String endpoint, BaseModel body) {
         String url = EnvConfig.HOST + EnvConfig.LIB + endpoint;
         RequestSpecification spec = given();
         spec = addHeader(spec);
         if (body != null) spec.body(body);
         Response rawResponse = spec.request(method, url);
+        LOG.info("Endpoint URL is: "+url);
         return new BaseResponse(rawResponse);
     }
 

@@ -1,21 +1,29 @@
 package service;
 
 import client.HttpClient;
+import models.BaseModel;
+import models.author.Author;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import response.BaseResponse;
+import utils.CsvReader;
 import utils.EndpointBuilder;
 import utils.JsonSamplesReader;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class AuthorService {
     private Logger LOG = Logger.getLogger(AuthorService.class);
-    public BaseResponse createAuthor (String entity, int entityId, String fileName) {
+    public static Author body;
+    public static Integer authorId;
+    public BaseResponse createAuthor (String entity, int id, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
-        LOG.info(String.format("Endpoint is: %s",endpoint));
-        String body=updateJsonSample(entityId,fileName).toString();
+        body=generateAuthorRequest(id,fileName);
+        authorId=body.getAuthorId();
         return HttpClient.post(endpoint,body);
     }
-
+/*
     public BaseResponse updateAuthor (String entity, int entityId, String fileName, String updateParam, String updateValue) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
         LOG.info(String.format("Endpoint is: %s",endpoint));
@@ -35,7 +43,7 @@ public class AuthorService {
         String body=source.toString();
         return HttpClient.put(endpoint,body);
     }
-
+*/
     public JSONObject updateJsonSample (int entityId, String fileName) {
         JSONObject root = new JsonSamplesReader (fileName).get();
         root.put("authorId",entityId);
@@ -59,8 +67,9 @@ public class AuthorService {
 
 
     // TODO properly handle genre entity
-    public BaseResponse createGenre(Object genre) {
-        String endpoint = new EndpointBuilder().addEntityType("genre").get();
-        return HttpClient.post(endpoint, genre.toString());
+    public Author generateAuthorRequest(int id, String fileName) {
+        LinkedList<Author> allTestAuthors = new CsvReader().getAuthorTestData(fileName);
+        Author body = allTestAuthors.get(id);
+        return body;
     }
 }
