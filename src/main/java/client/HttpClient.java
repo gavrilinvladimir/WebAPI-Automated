@@ -5,14 +5,13 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.BaseModel;
-import models.author.Author;
 import org.apache.log4j.Logger;
 import response.BaseResponse;
 
 import static io.restassured.RestAssured.*;
 
 public class HttpClient {
-    private static Logger LOG = Logger.getLogger(HttpClient.class);
+    private static final Logger LOG = Logger.getLogger(HttpClient.class);
 
     public static BaseResponse get(String endpoint) {
         return HttpClient.sendRequest(Method.GET, endpoint);

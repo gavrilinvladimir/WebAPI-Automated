@@ -6,8 +6,8 @@ public enum ServicesConfig {
     GENRE ("genre","genres"),
     SEARCH ("search", "none");
 
-    private String singular;
-    private String plural;
+    private final String singular;
+    private final String plural;
 
 
     ServicesConfig(String singular, String plural) {

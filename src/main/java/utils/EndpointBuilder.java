@@ -1,13 +1,11 @@
 package utils;
 
 import config.QueryOptions;
-import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 
 public class EndpointBuilder {
     private String endpoint;
-    private Logger LOG = Logger.getLogger(EndpointBuilder.class);
 
     public EndpointBuilder() {
         this.endpoint = "";
@@ -24,7 +22,7 @@ public class EndpointBuilder {
     }
 
     public EndpointBuilder addQueryOption(String fileName) {
-        HashMap queryOptions = new QueryOptions().getQueryOptions(fileName);
+        HashMap <String, Object> queryOptions = new QueryOptions().getQueryOptions(fileName);
         String delimiter;
         for (Object key : queryOptions.keySet()) {
             if (this.endpoint.contains("?")) delimiter = "&";

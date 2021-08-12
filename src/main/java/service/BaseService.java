@@ -6,7 +6,7 @@ import response.BaseResponse;
 import utils.EndpointBuilder;
 
 public class BaseService {
-    private Logger LOG = Logger.getLogger(BaseService.class);
+    private final Logger LOG = Logger.getLogger(BaseService.class);
 
     public BaseResponse getAllEntities(String entity) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();

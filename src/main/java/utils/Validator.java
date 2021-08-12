@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import response.BaseResponse;
 import service.AuthorService;
+import java.util.List;
 
 public class Validator {
     private static final Logger LOG = Logger.getLogger(Validator.class);
@@ -17,7 +18,7 @@ public class Validator {
     }
 
     public static void validateAuthorResponse (BaseResponse response) {
-        Author testAuthor = (Author) new AuthorService().body;
+        Author testAuthor = AuthorService.body;
         Author responseAuthor = response.getAsAuthorClass();
         SoftAssert soft = new SoftAssert();
 
@@ -49,5 +50,10 @@ public class Validator {
         soft.assertEquals(actualAuthorDescription,expectedAuthorDescription,String.format("\n'authorDescription' Expected: %s.Actual: %s",expectedAuthorId,actualAuthorId));
         soft.assertAll();
         LOG.info("Created Author is correct");
+    }
+
+    public static void validateMultipleAuthorsResponse (BaseResponse response) {
+        List<Author> responseAuthor = response.getAsAuthorClassArray();
+        System.out.println(responseAuthor);
     }
 }
