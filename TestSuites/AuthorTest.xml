@@ -1,0 +1,107 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Test Author Service">
+    <test name = "[Test 1][POST] Create Author">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyPostCreateAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 2][PUT] Update Author">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyPutUpdateAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 3][POST][Negative] Check Error if try to create Author without authorId">
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyPostErrorCreateAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 4][DELETE] Delete Author">
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyDeleteAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 5][GET]- Get all Authors using QueryParameters">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyGetAllAuthorsQueryParams"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 6][GET]- Get all Authors using Search">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyGetSearchAuthors"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 7][GET]- Get Author of special Book">
+        <groups>
+            <run>
+                <include name = "require_full_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyGetAuthorsByAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 8][GET]- Get all Authors in special Genre">
+        <groups>
+            <run>
+                <include name = "require_full_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.author.AuthorTests">
+                <methods>
+                    <include name="verifyGetAuthorsByAuthorByGenre"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

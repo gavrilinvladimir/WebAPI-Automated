@@ -1,0 +1,107 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Test Genre Service">
+    <test name = "[Test 1][POST] Create Genre">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyPostCreateGenre"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 2][PUT] Update Genre">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyPutUpdateGenre"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 3][POST][Negative] Check Error if try to create Genre without genreId">
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyPostErrorCreateGenre"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 4][DELETE] Delete Genre">
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyDeleteGenre"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 5][GET]- Get all Genres using QueryParameters">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyGetAllGenresQueryParams"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 6][GET]- Get all Genres using Search">
+        <groups>
+            <run>
+                <include name = "require_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyGetSearchGenres"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 7][GET]- Get all Genres of special Author">
+        <groups>
+            <run>
+                <include name = "require_full_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyGetGenresByAuthor"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "[Test 8][GET]- Get all Genres of special Book">
+        <groups>
+            <run>
+                <include name = "require_full_cleanup"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="apiServiceTests.genre.GenreTests">
+                <methods>
+                    <include name="verifyGetGenresByBook"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

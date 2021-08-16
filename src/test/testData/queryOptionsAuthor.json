@@ -1,0 +1,7 @@
+{
+  "orderType": "asc",
+  "page": "1",
+  "pagination": "true",
+  "size": "30",
+  "sortBy": "authorId"
+}

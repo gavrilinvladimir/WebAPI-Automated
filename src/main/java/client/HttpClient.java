@@ -1,12 +1,15 @@
 package client;
 
 import config.EnvConfig;
+import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import models.BaseModel;
 import org.apache.log4j.Logger;
 import response.BaseResponse;
+
 
 import static io.restassured.RestAssured.*;
 
@@ -33,19 +36,13 @@ public class HttpClient {
         return HttpClient.sendRequest(method, endpoint, null);
     }
 
+    @Step ("Send Request")
     private static BaseResponse sendRequest(Method method, String endpoint, BaseModel body) {
         String url = EnvConfig.HOST + EnvConfig.LIB + endpoint;
-        RequestSpecification spec = given();
-        spec = addHeader(spec);
+        RequestSpecification spec = given().filter(new AllureRestAssured()).header("Content-Type","application/json");
         if (body != null) spec.body(body);
         Response rawResponse = spec.request(method, url);
         LOG.info("Endpoint URL is: "+url);
         return new BaseResponse(rawResponse);
-    }
-
-    public static RequestSpecification addHeader (RequestSpecification spec){
-        spec = given()
-                .header("Content-Type","application/json");
-        return spec;
     }
 }

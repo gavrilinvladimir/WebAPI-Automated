@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class EndpointBuilder {
     private String endpoint;
+    public static HashMap <String, String> queryOptions;
 
     public EndpointBuilder() {
         this.endpoint = "";
@@ -17,14 +18,14 @@ public class EndpointBuilder {
     }
 
     public EndpointBuilder addEntityId(int entityId) {
-        this.endpoint += "/" + entityId;
+            this.endpoint += "/" + entityId;
         return this;
     }
 
     public EndpointBuilder addQueryOption(String fileName) {
-        HashMap <String, Object> queryOptions = new QueryOptions().getQueryOptions(fileName);
+        queryOptions = new QueryOptions().getQueryOptions(fileName);
         String delimiter;
-        for (Object key : queryOptions.keySet()) {
+        for (String key : queryOptions.keySet()) {
             if (this.endpoint.contains("?")) delimiter = "&";
             else delimiter = "?";
             this.endpoint += delimiter + key + "=" + queryOptions.get(key);
@@ -35,5 +36,4 @@ public class EndpointBuilder {
     public String get() {
         return this.endpoint;
     }
-
 }

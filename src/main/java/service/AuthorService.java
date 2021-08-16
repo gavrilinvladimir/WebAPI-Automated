@@ -1,26 +1,35 @@
 package service;
 
 import client.HttpClient;
+import io.qameta.allure.Step;
 import models.author.Author;
+import org.testng.annotations.Listeners;
 import response.BaseResponse;
 import utils.CsvReader;
 import utils.EndpointBuilder;
+
 import java.util.LinkedList;
 
-public class AuthorService {
+public class AuthorService extends BaseService{
     public static Author body;
     public static Integer authorId;
+
+    @Step ("Create Author")
     public BaseResponse createAuthor (String entity, int id, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
         body=generateCreateAuthorRequest(id,fileName);
         authorId=body.getAuthorId();
-        return HttpClient.post(endpoint,body);
+        rawResponse=HttpClient.post(endpoint,body);
+        return rawResponse;
     }
 
+    @Step ("Update Author with authorId={id}")
     public BaseResponse updateAuthor (String entity, int id, int authorId, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
         body=generateUpdateAuthorRequest(id,authorId,fileName);
-        return HttpClient.put(endpoint,body);
+        rawResponse=HttpClient.put(endpoint,body);
+        testAttachments.getResponseAttachment(rawResponse);
+        return rawResponse;
     }
 
     public Author generateCreateAuthorRequest(int id, String fileName) {

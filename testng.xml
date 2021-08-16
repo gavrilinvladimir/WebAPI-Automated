@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="TestScope for WebAPI Testing Tasks"  >
+    <suite-files>
+        <suite-file path="TestSuites/AuthorTest.xml" />
+        <suite-file path="TestSuites/BookTest.xml" />
+        <suite-file path="TestSuites/GenreTest.xml" />
+    </suite-files>
+</suite>

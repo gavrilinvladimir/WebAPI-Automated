@@ -2,6 +2,9 @@ package response;
 
 import io.restassured.response.Response;
 import models.author.Author;
+import models.book.Book;
+import models.genre.Genre;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +19,15 @@ public class BaseResponse {
         return this.response.getStatusCode();
     }
 
-    public String getHeader(String header) {
-        return this.response.getHeader(header);
+    public String getHeader() {
+        return this.response.headers().toString();
+    }
+
+    public String getContentType( ) {
+        return this.response.getContentType();
+    }
+    public long getTime( ) {
+        return this.response.getTime();
     }
 
     public String getBody() {
@@ -29,6 +39,23 @@ public class BaseResponse {
     }
 
     public List<Author> getAsAuthorClassArray() {
-        return Arrays.asList(response.getBody().as(Author.class));
+        return Arrays.asList(response.getBody().as(Author[].class));
     }
+
+    public Book getAsBookClass() {
+        return this.response.body().as(Book.class);
+    }
+
+    public List<Book> getAsBookClassArray() {
+        return Arrays.asList(response.getBody().as(Book[].class));
+    }
+
+    public Genre getAsGenreClass() {
+        return this.response.body().as(Genre.class);
+    }
+
+    public List<Genre> getAsGenreClassArray() {
+        return Arrays.asList(response.getBody().as(Genre[].class));
+    }
+
 }

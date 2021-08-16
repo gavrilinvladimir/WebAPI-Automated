@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class QueryOptions  {
-    public HashMap <String, Object> getQueryOptions (String fileName) {
+    public HashMap <String, String> getQueryOptions (String fileName) {
         JSONObject root = new JsonSamplesReader(fileName).get();
-        HashMap <String, Object> queryOptions = new HashMap<>();
+        HashMap <String, String> queryOptions = new HashMap<>();
         try
         {
             queryOptions = new ObjectMapper().readValue(root.toString(),HashMap.class);
