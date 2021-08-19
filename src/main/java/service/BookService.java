@@ -1,6 +1,7 @@
 package service;
 
 import client.HttpClient;
+import io.qameta.allure.Step;
 import models.book.Book;
 import org.testng.annotations.Listeners;
 import response.BaseResponse;
@@ -12,6 +13,8 @@ import java.util.LinkedList;
 public class BookService extends BaseService {
     public static Book body;
     public static Integer bookId;
+
+    @Step("Create Book")
     public BaseResponse createBook (String entity, int id, int authorId,int genreId, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).addEntityId(authorId).addEntityId(genreId).get();
         body=generateCreateBookRequest(id,fileName);
@@ -19,6 +22,7 @@ public class BookService extends BaseService {
         return HttpClient.post(endpoint,body);
     }
 
+    @Step("Update Book")
     public BaseResponse updateBook (String entity, int id, int authorId, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
         body=generateUpdateBookRequest(id,authorId,fileName);

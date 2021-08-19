@@ -1,19 +1,14 @@
 package service;
 
 import client.HttpClient;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
-import org.testng.annotations.Listeners;
 import response.BaseResponse;
 import utils.EndpointBuilder;
-import utils.TestAttachments;
 
 
 public class BaseService {
     public static BaseResponse rawResponse;
-    public static TestAttachments testAttachments = new TestAttachments();
-
     private final Logger LOG = Logger.getLogger(BaseService.class);
     public BaseResponse getAllEntities(String entity) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();

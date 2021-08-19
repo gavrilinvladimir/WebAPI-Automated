@@ -20,17 +20,14 @@ public class Validator {
     public EndpointBuilder endpointBuilder = new EndpointBuilder();
 
     @Step ("Validate Status code")
-    public  Validator validateStatusCode (BaseResponse response, int expectedCode) {
-        int statusCode = response.getStatusCode();
-        Assert.assertEquals(statusCode,expectedCode,String.format(
-                "\nStatus code is: '%s'.\nResponse: %s", statusCode,response.getBody()));
-        LOG.info("Status code is: "+statusCode);
-        LOG.info("Response: "+response.getBody());
+    public  Validator validateStatusCode (int actualCode, int expectedCode) {
+        Assert.assertEquals(actualCode,expectedCode,String.format(
+                "\nStatus code is: '%s'.\nExpected: %s", actualCode, expectedCode));
+        LOG.info("Status code is: "+actualCode);
         return this;
     }
     @Step ("Validate Author response")
-    public Validator validateAuthorResponse (BaseResponse response) {
-        Author expected = AuthorService.body;
+    public Validator validateAuthorResponse (BaseResponse response, Author expected) {
         Author actual = response.getAsAuthorClass();
         SoftAssert soft = new SoftAssert();
 
@@ -56,8 +53,7 @@ public class Validator {
     }
 
     @Step ("Check if Author is present in response")
-    public  Validator validateMultipleAuthorsResponseById (BaseResponse response) {
-        Author expected = AuthorService.body;
+    public  Validator validateMultipleAuthorsResponseById (BaseResponse response, Author expected) {
         List<Author> authors = response.getAsAuthorClassArray();
         int i = 0;
         for (Author author: authors) {
@@ -69,8 +65,7 @@ public class Validator {
     }
 
     @Step ("Validate Genre response")
-    public Validator validateGenreResponse (BaseResponse response) {
-        Genre expected = GenreService.body;
+    public Validator validateGenreResponse (BaseResponse response, Genre expected) {
         Genre actual = response.getAsGenreClass();
         SoftAssert soft = new SoftAssert();
 
@@ -86,8 +81,7 @@ public class Validator {
     }
 
     @Step ("Check if Genre is present in response")
-    public  Validator validateMultipleGenresResponseById (BaseResponse response) {
-        Genre expected = GenreService.body;
+    public  Validator validateMultipleGenresResponseById (BaseResponse response, Genre expected) {
         List<Genre> genres = response.getAsGenreClassArray();
         int i = 0;
         for (Genre genre: genres) {
@@ -143,11 +137,11 @@ public class Validator {
     @Step ("Check if Book is present in response")
     public  Validator validateMultipleBooksResponseByName (BaseResponse response) {
         List<Book> books = response.getAsBookClassArray();
-        int i = 0;
+        int count = 0;
         for (Book book: books) {
-            if (book.getBookName().contains(endpointBuilder.queryOptions.get("q"))) i++;
+            if (book.getBookName().contains(endpointBuilder.queryOptions.get("q"))) count++;
         }
-        Assert.assertTrue(i>=1,String.format("Expected Book 'bookName=%s' is not present in queryResults",endpointBuilder.queryOptions.get("q")));
+        Assert.assertTrue(count>=1,String.format("Expected Book 'bookName=%s' is not present in queryResults",endpointBuilder.queryOptions.get("q")));
         LOG.info(String.format("Expected Book 'bookName=%s' is present in queryResults",endpointBuilder.queryOptions.get("q")));
         return this;
     }

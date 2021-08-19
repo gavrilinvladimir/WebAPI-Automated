@@ -23,12 +23,11 @@ public class AuthorService extends BaseService{
         return rawResponse;
     }
 
-    @Step ("Update Author with authorId={id}")
+    @Step ("Update Author")
     public BaseResponse updateAuthor (String entity, int id, int authorId, String fileName) {
         String endpoint = new EndpointBuilder().addEntityType(entity).get();
         body=generateUpdateAuthorRequest(id,authorId,fileName);
         rawResponse=HttpClient.put(endpoint,body);
-        testAttachments.getResponseAttachment(rawResponse);
         return rawResponse;
     }
 

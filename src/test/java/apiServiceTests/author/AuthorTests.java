@@ -1,5 +1,7 @@
 package apiServiceTests.author;
 
+import apiServiceTests.BaseTest;
+import config.Constants;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import response.BaseResponse;
@@ -11,91 +13,84 @@ import service.GenreService;
 import static org.apache.http.HttpStatus.*;
 
 @Feature("Author Service Tests")
-public class AuthorTests extends BaseTestAuthor {
-    @Test (description = "Positive check for creation an author", groups={"require_cleanup"})
+public class AuthorTests extends BaseTest {
+    @Test (description = "Positive check for creation an author", groups = {"clean_author"})
     public void verifyPostCreateAuthor () {
         authorService
-                .createAuthor(entityAuthor,testAuthorRow, "authorPositive.csv");
+                .createAuthor(Constants.author,Constants.authorRow, Constants.authorPositive);
         validator
-                .validateStatusCode(BaseService.rawResponse,SC_CREATED);
+                .validateStatusCode(BaseService.rawResponse.getStatusCode(),SC_CREATED);
 
-        BaseResponse responseCheckEntity = baseService.getEntityById(entityAuthor, AuthorService.authorId);
+        BaseResponse responseCheckEntity = baseService.getEntityById(Constants.author, AuthorService.authorId);
         validator
-                .validateStatusCode(responseCheckEntity,SC_OK)
-                .validateAuthorResponse(responseCheckEntity);
+                .validateStatusCode(responseCheckEntity.getStatusCode(),SC_OK)
+                .validateAuthorResponse(responseCheckEntity,AuthorService.body);
     }
 
     @Test (description = "Negative check for creation an author")
     public void verifyPostErrorCreateAuthor () {
-        authorService
-                .createAuthor(entityAuthor,testAuthorRow, "authorNegative.csv");
+        BaseResponse responseCheckEntity = authorService
+                .createAuthor(Constants.author,Constants.authorRow, Constants.authorNegative);
         validator
-                .validateStatusCode(BaseService.rawResponse,SC_BAD_REQUEST);
+                .validateStatusCode(responseCheckEntity.getStatusCode(),SC_BAD_REQUEST);
     }
 
-    @Test (description = "Positive check for update author", groups={"require_cleanup"})
+    @Test (description = "Positive check for update author", groups={"require_author"})
     public void verifyPutUpdateAuthor () {
-        authorService
-                .createAuthor(entityAuthor,testAuthorRow, "authorPositive.csv");
-
-        BaseResponse responseUpdateEntity = authorService.updateAuthor(entityAuthor,testAuthorUpdateRow, AuthorService.authorId, "authorPositive.csv");
+        BaseResponse responseUpdateEntity = authorService
+                .updateAuthor(Constants.author,Constants.authorUpdateRow, AuthorService.authorId, Constants.authorPositive);
         validator
-                .validateStatusCode(responseUpdateEntity,SC_OK);
+                .validateStatusCode(responseUpdateEntity.getStatusCode(),SC_OK);
 
-        BaseResponse responseCheckEntity = baseService.getEntityById(entityAuthor, AuthorService.authorId);
+        BaseResponse responseCheckAuthor = baseService.getEntityById(Constants.author, AuthorService.authorId);
         validator
-                .validateStatusCode(responseCheckEntity,SC_OK)
-                .validateAuthorResponse(responseCheckEntity);
+                .validateStatusCode(responseCheckAuthor.getStatusCode(),SC_OK)
+                .validateAuthorResponse(responseCheckAuthor,AuthorService.body);
     }
 
-    @Test (description = "Positive check for delete author")
+    @Test (description = "Positive check for delete author", groups={"require_author"})
     public void verifyDeleteAuthor () {
-        authorService
-                .createAuthor(entityAuthor,testAuthorRow, "authorPositive.csv");
-
         baseService
-                .removeEntityForcibly(entityAuthor, AuthorService.authorId, "false");
+                .removeEntityForcibly(Constants.author, AuthorService.authorId, Constants.forcibly);
 
-        BaseResponse responseCheckEntity = baseService.getEntityById(entityAuthor, AuthorService.authorId);
+        BaseResponse responseCheckEntity = baseService.getEntityById(Constants.author, AuthorService.authorId);
         validator
-                .validateStatusCode(responseCheckEntity,SC_NOT_FOUND);
+                .validateStatusCode(responseCheckEntity.getStatusCode(),SC_NOT_FOUND);
     }
 
-    @Test (description = "Positive check for get all authors with queryParameters", groups={"require_cleanup"})
+    @Test (description = "Positive check for get all authors with queryParameters", groups={"require_author"})
     public void verifyGetAllAuthorsQueryParams () {
-        authorService.
-                createAuthor(entityAuthor,testAuthorRow, "authorPositive.csv");
-        BaseResponse responseGetEntities = baseService.getAllEntitiesWithOptions(entityAuthors, "testData/queryOptionsAuthor.json");
+        BaseResponse responseGetEntities = baseService
+                .getAllEntitiesWithOptions(Constants.authors, Constants.queryAuthor);
         validator
-                .validateStatusCode(responseGetEntities,SC_OK)
-                .validateMultipleAuthorsResponseById(responseGetEntities);
+                .validateStatusCode(responseGetEntities.getStatusCode(),SC_OK)
+                .validateMultipleAuthorsResponseById(responseGetEntities,AuthorService.body);
     }
 
-    @Test (description = "Positive check for search authors", groups={"require_cleanup"})
+    @Test (description = "Positive check for search authors", groups={"require_author"})
     public void verifyGetSearchAuthors () {
-        authorService.
-                createAuthor(entityAuthor,testAuthorUpdateRow, "authorPositive.csv");
-
-        BaseResponse responseSearchEntities = baseService.getAllEntitiesWithSearch(entityAuthors, "testData/searchAuthor.json", search);
+        BaseResponse responseSearchEntities = baseService
+                .getAllEntitiesWithSearch(Constants.authors, Constants.searchAuthor, Constants.search);
         validator
-                .validateStatusCode(responseSearchEntities,SC_OK)
+                .validateStatusCode(responseSearchEntities.getStatusCode(),SC_OK)
                 .validateMultipleAuthorsResponseByName(responseSearchEntities);
     }
 
     @Test (description = "Positive check for get Author of special Book", groups={"require_full_cleanup"})
     public void verifyGetAuthorsByBook () {
-        BaseResponse responseCheckEntity = baseService.getAllEntitiesWithinAnother(entityAuthor,entityBook, BookService.bookId);
+        BaseResponse responseCheckEntity = baseService
+                .getAllEntitiesWithinAnother(Constants.author,Constants.book, BookService.bookId);
         validator
-                .validateStatusCode(responseCheckEntity,SC_OK)
-                .validateAuthorResponse(responseCheckEntity);
+                .validateStatusCode(responseCheckEntity.getStatusCode(),SC_OK)
+                .validateAuthorResponse(responseCheckEntity,AuthorService.body);
     }
 
     @Test (description = "Positive check for get all Authors in special Genre", groups={"require_full_cleanup"})
     public void verifyGetAuthorsByAuthorByGenre () {
-        BaseResponse responseCheckEntity = baseService.getAllEntitiesWithinAnother(entityAuthors,entityGenre,GenreService.genreId);
+        BaseResponse responseCheckEntity = baseService
+                .getAllEntitiesWithinAnother(Constants.authors,Constants.genre,GenreService.genreId);
         validator
-                .validateStatusCode(responseCheckEntity,SC_OK)
-                .validateMultipleAuthorsResponseById(responseCheckEntity);
+                .validateStatusCode(responseCheckEntity.getStatusCode(),SC_OK)
+                .validateMultipleAuthorsResponseById(responseCheckEntity,AuthorService.body);
     }
-
 }

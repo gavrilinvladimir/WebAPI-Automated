@@ -3,11 +3,6 @@
 
 <suite name = "Test Book Service">
     <test name = "[Test 1][POST] Create Book">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>
@@ -17,11 +12,6 @@
         </classes>
     </test>
     <test name = "[Test 2][PUT] Update Book">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>
@@ -49,11 +39,6 @@
         </classes>
     </test>
     <test name = "[Test 5][GET]- Get all Books using QueryParameters">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>
@@ -63,11 +48,6 @@
         </classes>
     </test>
     <test name = "[Test 6][GET]- Get all Books using Search">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>
@@ -77,11 +57,6 @@
         </classes>
     </test>
     <test name = "[Test 7][GET]- Get all Books of special Author">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>
@@ -91,11 +66,6 @@
         </classes>
     </test>
     <test name = "[Test 8][GET]- Get all Books of special Author in special Genre">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.book.BookTests">
                 <methods>

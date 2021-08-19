@@ -3,11 +3,6 @@
 
 <suite name = "Test Author Service">
     <test name = "[Test 1][POST] Create Author">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
@@ -17,11 +12,6 @@
         </classes>
     </test>
     <test name = "[Test 2][PUT] Update Author">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
@@ -49,11 +39,6 @@
         </classes>
     </test>
     <test name = "[Test 5][GET]- Get all Authors using QueryParameters">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
@@ -63,11 +48,6 @@
         </classes>
     </test>
     <test name = "[Test 6][GET]- Get all Authors using Search">
-        <groups>
-            <run>
-                <include name = "require_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
@@ -77,25 +57,15 @@
         </classes>
     </test>
     <test name = "[Test 7][GET]- Get Author of special Book">
-        <groups>
-            <run>
-                <include name = "require_full_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
-                    <include name="verifyGetAuthorsByAuthor"/>
+                    <include name="verifyGetAuthorsByBook"/>
                 </methods>
             </class>
         </classes>
     </test>
     <test name = "[Test 8][GET]- Get all Authors in special Genre">
-        <groups>
-            <run>
-                <include name = "require_full_cleanup"/>
-            </run>
-        </groups>
         <classes>
             <class name="apiServiceTests.author.AuthorTests">
                 <methods>
